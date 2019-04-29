@@ -1,0 +1,2 @@
+allow init self:capability { sys_module };
+allow kernel self:capability { mknod };

@@ -1,0 +1,62 @@
+USE_CAMERA_STUB := true
+
+# inherit from the proprietary version
+-include vendor/sunvell/p201_8723/BoardConfigVendor.mk
+
+TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a
+#TARGET_NO_BOOTLOADER := true
+TARGET_BOARD_PLATFORM := gxbaby
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_VARIANT := cortex-a7
+TARGET_CPU_ABI2 := armeabi
+#TARGET_CPU_ABI_LIST := armeabi-v7a,armeabi
+#TARGET_CPU_ABI_LIST_32_BIT := x86,armeabi-v7a,armeabi
+TARGET_CPU_SMP := true
+#ARCH_ARM_HAVE_TLS_REGISTER := true
+
+TARGET_BOOTLOADER_BOARD_NAME := p201_8723
+#TARGET_DROIDBOOT_LIBS := libintel_droidboot
+#TARGET_BOOTLOADER_IS_2ND := true
+
+BOARD_KERNEL_CMDLINE := androidboot.serialno=1234567890
+BOARD_KERNEL_BASE := 0x01078000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0xfff88000 --tags_offset 0xfef88100  --second_offset 0xffe88000 --second device/sunvell/p201_8723/2ndstageboot
+
+# fix this up by examining /proc/mtd on a running device
+BOARD_BOOTIMAGE_PARTITION_SIZE := 17825792
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 17825792
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x08c60000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x105c0000
+BOARD_FLASH_BLOCK_SIZE := 131072
+
+TARGET_PREBUILT_KERNEL := device/sunvell/p201_8723/kernel
+
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+	LOCAL_KERNEL := device/sunvell/p201_8723/kernel
+else
+	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+#TARGET_RECOVERY_FSTAB := device/amlogic/p201_8723/recovery.fstab
+
+DEVICE_RESOLUTION := 1920x1080
+TARGET_USERIMAGES_USE_EXT4 := true
+TW_EXCLUDE_MTP := true
+TW_EXCLUDE_SUPERSU := true
+TW_INCLUDE_CRYPTO := true
+TW_CRYPTO_USE_SYSTEM_VOLD := true
+TW_NO_BATT_PERCENT := true
+TW_NO_REBOOT_BOOTLOADER := true
+TW_NO_USB_STORAGE := true
+TW_NO_SCREEN_TIMEOUT := true
+TW_NO_CPU_TEMP := true
+TW_NO_SCREEN_BLANK := true
+TARGET_RECOVERY_FORCE_PIXEL_FORMAT := "RGB_565"
+BOARD_HAS_NO_SELECT_BUTTON := true
+
+BOARD_SEPOLICY_DIRS += device/sunvell/p201_8723/sepolicy
+BOARD_SEPOLICY_UNION += \
+		init.te \
+		file_contexts
